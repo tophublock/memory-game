@@ -1,0 +1,39 @@
+body {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: flex-center;
+    /* align-content: flex-stretch; */
+    border: 2px solid black;
+    max-width: 50%;
+    margin: auto;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0em 0em 1em 0em;
+}
+
+.game-metadata-container,
+.game-options-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 2px solid black;
+    min-width: 300px;
+}
+
+.difficulty-container, 
+.metadata-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.game {
+    display: grid;
+    border: 2px solid black;
+    min-width: 100%;
+}

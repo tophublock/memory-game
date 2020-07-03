@@ -6,35 +6,39 @@
     <meta name="description"  content="A simple memory game in Javascript">
     <meta name="keywords" content="memory,game,simple">
     <title>Memory Game</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
     <header>
         <h1>Memory Game</h1>
         <h3>by aim4</h3>
     </header>
-    <div class="game-metadata">
-        <div class="score-container">
-            <p>Score: </p>
+    <div class="game-metadata-container">
+        <div class="metadata-container">
+            <p>Score:</p>
             <p id="score">0</p>
         </div>
-        <div class="moves-container">
-            <p>Moves: </p>
+        <div class="metadata-container">
+            <p>Moves:</p>
             <p id="moves">0</p>
         </div>
-        <div class="time-container">
-            <p>Time: </p>
+        <div class="metadata-container">
+            <p>Time:</p>
             <p id="time">00:00</p>
         </div>
     </div>
     <div class="game">
+        <p>Game here</p>
     </div>
-    <div class="game-options">
-        <label>Difficulty</label>
-        <select id="difficulty">
-            <option value="easy">easy</option>
-            <option value="medium">medium</option>
-            <option value="hard">hard</option>
-        </select>
+    <div class="game-options-container">
+        <div class="difficulty-container">
+            <label>Difficulty</label>
+            <select id="difficulty">
+                <option value="easy">easy</option>
+                <option value="medium">medium</option>
+                <option value="hard">hard</option>
+            </select>
+        </div>
         <button>Restart</button>
     </div>
 </body>

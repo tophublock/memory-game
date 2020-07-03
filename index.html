@@ -3,9 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="description"  content="A simple memory game in Javascript">
+    <meta name="keywords" content="memory,game,simple">
+    <title>Memory Game</title>
 </head>
 <body>
-    
+    <header>
+        <h1>Memory Game</h1>
+        <h3>by aim4</h3>
+    </header>
+    <div class="game-metadata">
+        <div class="score-container">
+            <p>Score: </p>
+            <p id="score">0</p>
+        </div>
+        <div class="moves-container">
+            <p>Moves: </p>
+            <p id="moves">0</p>
+        </div>
+        <div class="time-container">
+            <p>Time: </p>
+            <p id="time">00:00</p>
+        </div>
+    </div>
+    <div class="game">
+    </div>
+    <div class="game-options">
+        <label>Difficulty</label>
+        <select id="difficulty">
+            <option value="easy">easy</option>
+            <option value="medium">medium</option>
+            <option value="hard">hard</option>
+        </select>
+        <button>Restart</button>
+    </div>
 </body>
 </html>

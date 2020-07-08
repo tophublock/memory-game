@@ -7,7 +7,6 @@ export default class Game {
         this._height = n;
         this._deck = new Deck(n * n);
         console.log("I was created");
-        this._createBoard();
     }
 
     _createBoard() {
@@ -15,7 +14,7 @@ export default class Game {
         for (let i = 0; i < this._width; i++) {
             let row = []
             for (let j = 0; j < this._height; j++) {
-                row.push(this._deck[i * this._width + j])
+                row.push(this._deck.getCard(i * this._width + j))
             }
             this._board.push(row);
         }
@@ -24,7 +23,8 @@ export default class Game {
     printBoard() {
         for (let i = 0; i < this._width; i++) {
             for (let j = 0; j < this._height; j++) {
-                console.log("Board: " + i + " - " + j + " card: " + this._board[i * this._width + j]);
+                let card = this.board_[i * this._width + j];
+                console.log("Board: " + i + " - " + j + " card: " + card.value);
             }
         }
     }

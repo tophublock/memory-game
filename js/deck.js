@@ -23,4 +23,8 @@ export default class Deck {
             this.cards[j] = temp;
         }
     }
+
+    getCard(i) {
+        return this._cards[i];
+    }
 }

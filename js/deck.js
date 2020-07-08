@@ -11,6 +11,8 @@ export default class Deck {
         for (let i = 0; i < Math.floor(n / 2); i++) {
             cards.push(new Card(i));
             cards.push(new Card(i));
+            console.log(cards[i-1].getValue());
+            console.log(cards[i].getValue());
         }
         return cards;
     }

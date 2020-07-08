@@ -34,6 +34,11 @@ header {
 
 .game {
     display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    column-gap: 1rem;
+    row-gap: 1rem;
+    justify-items: center;
     border: 2px solid black;
     min-width: 100%;
 }

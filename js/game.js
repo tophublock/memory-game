@@ -7,6 +7,7 @@ export default class Game {
         this._height = n;
         this._deck = new Deck(n * n);
         console.log("I was created");
+        this._createBoard();
     }
 
     _createBoard() {

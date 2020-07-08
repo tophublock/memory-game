@@ -23,9 +23,14 @@ export default class Game {
     }
 
     render() {
-        const deck = this._deck.render();
         const gameDiv = document.getElementById('board');
-        gameDiv.appendChild(deck);
+        for (let i = 0; i < this._board.length; i++) {
+            for (let j = 0; j < this._board[i].length; j++) {
+                const card = this._board[i][j].getCard().render();
+                gameDiv.appendChild(card);
+            }
+        }
+        return gameDiv;
     }
 
     printBoard() {

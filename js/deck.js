@@ -1,5 +1,4 @@
-let cardModule = require('./card.js');
-let Card = cardModule.Card;
+import Card from "./card.js";
 
 class Deck {
     constructor(n) {
@@ -10,8 +9,9 @@ class Deck {
         let cards = [];
         // TODO: make 2 of every value
         // Make sure n is even when creating new Deck
-        for (let i = 0; i < n; i++) {
-            cards.push(Card(i));
+        for (let i = 0; i < Math.floor(n / 2); i++) {
+            cards.push(new Card(i));
+            cards.push(new Card(i));
         }
         return cards;
     }

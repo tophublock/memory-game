@@ -2,25 +2,25 @@ import Card from "./card.js";
 
 export default class Deck {
     constructor(n) {
-        this.cards = this._createDeck(n);        
+        this._cards = this._createDeck(n);        
     }
 
     _createDeck(n) {
-        let cards = [];
+        let _cards = [];
         for (let i = 0; i < Math.floor(n / 2); i++) {
-            cards.push(new Card(i));
-            cards.push(new Card(i));
+            _cards.push(new Card(i));
+            _cards.push(new Card(i));
         }
-        return cards;
+        return _cards;
     }
 
     shuffle() {
         // Fisher-Yates Algorithm
-        for (let i = this.cards.length - 1; i > 0; i--) {
+        for (let i = this._cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            const temp = this.cards[j];
-            this.cards[i] = this.cards[j];
-            this.cards[j] = temp;
+            const temp = this._cards[j];
+            this._cards[i] = this._cards[j];
+            this._cards[j] = temp;
         }
     }
 

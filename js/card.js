@@ -3,7 +3,3 @@ class Card {
         this.value = value;
     }
 }
-
-module.exports = {
-    Card: Card;
-}

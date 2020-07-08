@@ -1,8 +1,9 @@
 const http = require("http");
 const fs = require("fs");
-const gameModule = require("./js/game.js");
-let Game = gameModule.Game;
-let game = new Game(5);
+// import http from 'http';
+// import fs from 'fs';
+// import Game from "./js/game.js";
+// let game = new Game(5)
 
 let server = http.createServer((req, res) => {
     console.log("req.url:", req.url);
@@ -24,4 +25,5 @@ let server = http.createServer((req, res) => {
 });
 
 server.listen(3000, "127.0.0.1");
+
 console.log("Listening at port 3000");

@@ -20,8 +20,8 @@ export default class Deck {
         for (let i = this._cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             const temp = this._cards[j].getValue();
-            this._cards[i].setValue(this._cards[j].getValue());
-            this._cards[j].setValue(temp);
+            this._cards[j].setValue(this._cards[i].getValue());
+            this._cards[i].setValue(temp);
         }
     }
 

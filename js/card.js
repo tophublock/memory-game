@@ -1,4 +1,4 @@
-import * as cs from './constants';
+import * as cs from './constants.js';
 
 export default class Card {
     #value = undefined;

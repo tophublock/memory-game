@@ -6,12 +6,12 @@ export default class Deck {
     }
 
     _createDeck(n) {
-        let _cards = [];
+        let cards = [];
         for (let i = 0; i < Math.floor(n / 2); i++) {
-            _cards.push(new Card(i));
-            _cards.push(new Card(i));
+            cards.push(new Card(i));
+            cards.push(new Card(i));
         }
-        return _cards;
+        return cards;
     }
 
     shuffle() {

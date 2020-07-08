@@ -26,7 +26,7 @@ export default class Game {
         const gameDiv = document.getElementById('board');
         for (let i = 0; i < this._board.length; i++) {
             for (let j = 0; j < this._board[i].length; j++) {
-                const card = this._board[i][j].getCard().render();
+                const card = this._board[i][j].render();
                 gameDiv.appendChild(card);
             }
         }

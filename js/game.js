@@ -22,11 +22,17 @@ export default class Game {
         }
     }
 
+    render() {
+        let deck = this._deck.render();
+        let gameDiv = document.getElementById("board");
+        gameDiv.appendChild(deck);
+    }
+
     printBoard() {
         for (let i = 0; i < this._width; i++) {
             for (let j = 0; j < this._height; j++) {
                 let card = this._board[i][j];
-                console.log("Board: " + i + " - " + j + " card: " + card.value);
+                console.log("Board: " + i + " - " + j + " card: " + card.getValue());
             }
         }
     }

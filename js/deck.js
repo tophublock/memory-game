@@ -1,4 +1,5 @@
 import Card from "./card.js";
+import * as cs from "./constants.js";
 
 export default class Deck {
     constructor(n) {
@@ -22,6 +23,16 @@ export default class Deck {
             this._cards[i] = this._cards[j];
             this._cards[j] = temp;
         }
+    }
+
+    render() {
+        let div = document.createElement("div");
+        div.classList.add(cs.DECK_CLASS);
+        for (let i = 0; i < this._cards.length; i++) {
+            let card = this._coards[i].render();
+            div.appendChild(card);
+        }
+        return div;
     }
 
     getCard(i) {

@@ -1,4 +1,4 @@
-class Game {
+export default class Game {
     constructor(n) {
         this._width = n;
         this._height = n;
@@ -12,8 +12,4 @@ class Game {
             }
         }
     }
-}
-
-module.exports = {
-    Game: Game
 }

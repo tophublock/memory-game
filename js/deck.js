@@ -3,7 +3,7 @@ import * as cs from './constants.js';
 
 export default class Deck {
     constructor(n) {
-        this._cards = this.createDeck(n);
+        this._cards = Deck.createDeck(n);
     }
 
     static createDeck(n) {

@@ -1,20 +1,22 @@
-import * as cs from "./constants.js";
+import * as cs from './constants';
 
 export default class Card {
+    #value = undefined;
+
     constructor(value) {
-        this._value = value;
+        this.#value = value;
     }
 
     render() {
-        let div = document.createElement("div");
+        const div = document.createElement('div');
         div.classList.add(cs.CARD_CLASS);
-        let p = document.createElement("p");
-        p.textContent = this._value;
+        const p = document.createElement('p');
+        p.textContent = this.#value;
         div.appendChild(p);
         return div;
     }
 
     getValue() {
-        return this._value;
+        return this.#value;
     }
 }

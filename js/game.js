@@ -23,7 +23,7 @@ export default class Game {
     printBoard() {
         for (let i = 0; i < this._width; i++) {
             for (let j = 0; j < this._height; j++) {
-                let card = this.board_[i * this._width + j];
+                let card = this._board[i * this._width + j];
                 console.log("Board: " + i + " - " + j + " card: " + card.value);
             }
         }

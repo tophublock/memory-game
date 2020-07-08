@@ -1,11 +1,9 @@
-import Card from './card';
-import * as cs from './constants';
+import Card from './card.js';
+import * as cs from './constants.js';
 
 export default class Deck {
-    #cards;
-
     constructor(n) {
-        this.#cards = this.createDeck(n);
+        this._cards = this.createDeck(n);
     }
 
     static createDeck(n) {
@@ -19,25 +17,25 @@ export default class Deck {
 
     shuffle() {
         // Fisher-Yates Algorithm
-        for (let i = this.#cards.length - 1; i > 0; i--) {
+        for (let i = this._cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            const temp = this.#cards[j];
-            this.#cards[i] = this.#cards[j];
-            this.#cards[j] = temp;
+            const temp = this._cards[j];
+            this._cards[i] = this._cards[j];
+            this._cards[j] = temp;
         }
     }
 
     render() {
         const div = document.createElement('div');
         div.classList.add(cs.DECK_CLASS);
-        for (let i = 0; i < this.#cards.length; i++) {
-            const card = this.#cards[i].render();
+        for (let i = 0; i < this._cards.length; i++) {
+            const card = this._cards[i].render();
             div.appendChild(card);
         }
         return div;
     }
 
     getCard(i) {
-        return this.#cards[i];
+        return this._cards[i];
     }
 }

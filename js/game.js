@@ -1,42 +1,37 @@
 import Deck from './deck.js';
 
 export default class Game {
-    #width = 0;
-    #height = 0;
-    #deck = undefined;
-    #board = undefined;
-
     constructor(n) {
         // TODO: ensure n is even
-        this.#width = n;
-        this.#height = n;
-        this.#deck = new Deck(n * n);
-        this.#deck.shuffle();
+        this._width = n;
+        this._height = n;
+        this._deck = new Deck(n * n);
+        this._deck.shuffle();
         this.createBoard();
         console.log('I was created');
     }
 
     createBoard() {
-        this.#board = [];
-        for (let i = 0; i < this.#width; i++) {
+        this._board = [];
+        for (let i = 0; i < this._width; i++) {
             const row = [];
-            for (let j = 0; j < this.#height; j++) {
-                row.push(this.#deck.getCard(i * this.#width + j));
+            for (let j = 0; j < this._height; j++) {
+                row.push(this._deck.getCard(i * this._width + j));
             }
-            this.#board.push(row);
+            this._board.push(row);
         }
     }
 
     render() {
-        const deck = this.#deck.render();
+        const deck = this._deck.render();
         const gameDiv = document.getElementById('board');
         gameDiv.appendChild(deck);
     }
 
     printBoard() {
-        for (let i = 0; i < this.#width; i++) {
-            for (let j = 0; j < this.#height; j++) {
-                const card = this.#board[i][j];
+        for (let i = 0; i < this._width; i++) {
+            for (let j = 0; j < this._height; j++) {
+                const card = this._board[i][j];
                 console.log(`Board: ${i} - ${j} card: ${card.getValue()}`);
             }
         }

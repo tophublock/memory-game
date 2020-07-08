@@ -14,6 +14,10 @@ export default class Card {
         return div;
     }
 
+    setValue(value) {
+        this._value = value;
+    }
+
     getValue() {
         return this._value;
     }

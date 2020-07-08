@@ -11,8 +11,6 @@ export default class Deck {
         for (let i = 0; i < Math.floor(n / 2); i++) {
             cards.push(new Card(i));
             cards.push(new Card(i));
-            console.log(cards[i-1].getValue());
-            console.log(cards[i].getValue());
         }
         return cards;
     }
@@ -21,9 +19,9 @@ export default class Deck {
         // Fisher-Yates Algorithm
         for (let i = this._cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            const temp = this._cards[j];
-            this._cards[i] = this._cards[j];
-            this._cards[j] = temp;
+            const temp = this._cards[j].getValue();
+            this._cards[i].setValue(this._cards[j].getValue());
+            this._cards[j].setValue(temp);
         }
     }
 

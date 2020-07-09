@@ -1,5 +1,5 @@
-import Card from './card.js';
 import * as cs from './constants.js';
+import Card from './card.js';
 
 export default class Deck {
     constructor(n) {

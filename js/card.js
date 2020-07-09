@@ -21,10 +21,9 @@ export default class Card {
     _renderParentElement() {
         this._element = document.createElement('div');
         this._element.classList.add(cs.CARD_CONTAINER_CLASS);
-        this._element.addEventListener('click', () => {
-            this.toggleStatus();
-            this._updateElement();
-        });
+        // this._element.addEventListener('click', () => {
+        //     this.toggleVisibility();
+        // });
         return this._element;
     }
 
@@ -49,12 +48,23 @@ export default class Card {
         return this._element;
     }
 
-    toggleStatus() {
+    bindEvent(event, func) {
+        if (this._element) {
+            this._element.addEventListener(event, func);
+        }
+    }
+
+    toggleVisibility() {
         if (this._status === cs.HIDDEN_STATUS) {
             this._status = cs.DEFAULT_STATUS;
         } else {
             this._status = cs.HIDDEN_STATUS;
         }
+        this._updateElement();
+    }
+
+    setStatus(status) {
+        this._status = status;
     }
 
     setValue(value) {

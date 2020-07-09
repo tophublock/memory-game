@@ -6,7 +6,11 @@ export const DECK_CLASS = 'deck';
 // Card status
 export const DEFAULT_STATUS = 'normal';
 export const HIDDEN_STATUS = 'hidden';
+export const MATCHED_STATUS = 'matched';
 
 // Visibility
 export const HIDDEN_VISIBILITY = 'hidden';
 export const DEFAULT_VISIBILTY = 'visible';
+
+// Game
+export const MAX_ATTEMPTS = 2;

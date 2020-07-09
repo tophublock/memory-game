@@ -7,8 +7,8 @@ export default class Game {
         // TODO: ensure n is even
         this._width = n;
         this._height = n;
-        this._numAttempts = 0;
         this._numMatches = 0;
+        this._paused = false;
         this._visibileCards = [];
         this._deck = new Deck(n * n);
         this.createBoard();
@@ -41,13 +41,13 @@ export default class Game {
     bindCard(card) {
         // TODO don't let user click the same card again
         card.bindEvent('click', () => {
-            if (this._visibileCards.includes(card) || !(card instanceof Card)) {
+            if (this.paused || this._visibileCards.includes(card) || !(card instanceof Card)) {
                 return;
             }
             this._visibileCards.push(card);
             card.toggleVisibility();
             if (this._visibileCards.length === cs.MAX_ATTEMPTS) {
-                // TODO don't let cards be revealed during timeout
+                this.paused = true;
                 setTimeout(() => {
                     if (this.checkMatch()) {
                         this.changeVisibleCardsStatus(cs.MATCHED_STATUS);
@@ -56,6 +56,7 @@ export default class Game {
                         this.changeVisibleCardsStatus(cs.HIDDEN_STATUS);
                     }
                     this._visibileCards.length = 0;
+                    this.paused = false;
                 }, 1000);
             }
         });

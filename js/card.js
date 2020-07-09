@@ -12,6 +12,9 @@ export default class Card {
         if (this._status === cs.HIDDEN_STATUS) {
             card.style.visibility = cs.HIDDEN_VISIBILITY;
             card.classList.add(cs.HIDDEN_STATUS);
+        } else if (this._status === cs.MATCHED_STATUS) {
+            card.style.visibility = cs.HIDDEN_VISIBILITY;
+            this._element.classList.add(cs.MATCHED_STATUS);
         } else {
             card.style.visibility = cs.DEFAULT_VISIBILTY;
             card.classList.remove(cs.HIDDEN_STATUS);
@@ -52,6 +55,10 @@ export default class Card {
         if (this._element) {
             this._element.addEventListener(event, func);
         }
+    }
+
+    update() {
+        this._updateElement();
     }
 
     toggleVisibility() {

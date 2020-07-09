@@ -8,6 +8,7 @@ export default class Game {
         this._width = n;
         this._height = n;
         this._numAttempts = 0;
+        this._numMatches = 0;
         this._visibileCards = [];
         this._deck = new Deck(n * n);
         this.createBoard();
@@ -46,7 +47,16 @@ export default class Game {
             this._visibileCards.push(card);
             card.toggleVisibility();
             if (this._visibileCards.length === cs.MAX_ATTEMPTS) {
-                this.checkMatch();
+                // TODO don't let cards be revealed during timeout
+                setTimeout(() => {
+                    if (this.checkMatch()) {
+                        this.changeVisibleCardsStatus(cs.MATCHED_STATUS);
+                        this._numMatches++;
+                    } else {
+                        this.changeVisibleCardsStatus(cs.HIDDEN_STATUS);
+                    }
+                    this._visibileCards.length = 0;
+                }, 1000);
             }
         });
     }
@@ -63,6 +73,13 @@ export default class Game {
             }
         }
         return true;
+    }
+
+    changeVisibleCardsStatus(status) {
+        this._visibileCards.forEach((card) => {
+            card.setStatus(status);
+            card.update();
+        });
     }
 
     printBoard() {

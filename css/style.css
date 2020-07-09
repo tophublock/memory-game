@@ -49,6 +49,7 @@ header {
     min-width: 75%;
     min-height: 75%;
     text-align: center;
+    margin: 0.5em;
 }
 
 .card {

@@ -25,7 +25,7 @@ header {
     min-width: 300px;
 }
 
-.difficulty-container, 
+.difficulty-container,
 .metadata-container {
     display: flex;
     flex-direction: row;
@@ -45,4 +45,11 @@ header {
 
 .card {
     border: 2px solid red;
+    min-width: 75%;
+}
+
+/* TODO change background color */
+.hidden {
+    border: 2px solid green;
+    background-color: green;
 }

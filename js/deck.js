@@ -38,4 +38,8 @@ export default class Deck {
     getCard(i) {
         return this._cards[i];
     }
+
+    getLength() {
+        return this._cards.length;
+    }
 }

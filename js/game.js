@@ -44,22 +44,28 @@ export default class Game {
             if (this.paused || this._visibileCards.includes(card) || !(card instanceof Card)) {
                 return;
             }
+
             this._visibileCards.push(card);
             card.toggleVisibility();
             if (this._visibileCards.length === cs.MAX_ATTEMPTS) {
-                this.paused = true;
-                setTimeout(() => {
-                    if (this.checkMatch()) {
-                        this.changeVisibleCardsStatus(cs.MATCHED_STATUS);
-                        this._numMatches++;
-                    } else {
-                        this.changeVisibleCardsStatus(cs.HIDDEN_STATUS);
-                    }
-                    this._visibileCards.length = 0;
-                    this.paused = false;
-                }, 1000);
+                this.processVisibleCards();
             }
         });
+    }
+
+    processVisibleCards() {
+        this.paused = true;
+        setTimeout(() => {
+            if (this.checkMatch()) {
+                this.changeVisibleCardsStatus(cs.MATCHED_STATUS);
+                this._numMatches++;
+                this.checkWin();
+            } else {
+                this.changeVisibleCardsStatus(cs.HIDDEN_STATUS);
+            }
+            this._visibileCards.length = 0;
+            this.paused = false;
+        }, 500);
     }
 
     checkMatch() {
@@ -74,6 +80,12 @@ export default class Game {
             }
         }
         return true;
+    }
+
+    checkWin() {
+        if (this._numMatches * 2 === this._deck.getLength()) {
+            console.log('you won!');
+        }
     }
 
     changeVisibleCardsStatus(status) {

@@ -3,7 +3,7 @@ import * as cs from './constants.js';
 export default class Card {
     constructor(value) {
         this._value = value;
-        this._status = cs.DEFAULT_STATUS;
+        this._status = cs.HIDDEN_STATUS;
         this._element = undefined;
     }
 

@@ -15,6 +15,13 @@ export default class Deck {
         return cards;
     }
 
+    resetDeck() {
+        this.shuffle();
+        this._cards.forEach((card) => {
+            card.setStatus(cs.HIDDEN_VISIBILITY);
+        });
+    }
+
     shuffle() {
         // Fisher-Yates Algorithm
         for (let i = this._cards.length - 1; i > 0; i--) {

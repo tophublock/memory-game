@@ -12,10 +12,11 @@ export default class Game {
         this._visibileCards = [];
         this._deck = new Deck(n * n);
         this.createBoard();
+        this.setResetButton();
     }
 
     createBoard() {
-        this._deck.shuffle();
+        this._deck.resetDeck();
         this._board = [];
         for (let i = 0; i < this._width; i++) {
             const row = [];
@@ -93,6 +94,21 @@ export default class Game {
             card.setStatus(status);
             card.update();
         });
+    }
+
+    setResetButton() {
+        const resetButton = document.getElementById('restart-button');
+        resetButton.addEventListener('click', () => {
+            console.log('reset');
+            this.reset();
+        });
+    }
+
+    reset() {
+        const gameDiv = document.getElementById('board');
+        gameDiv.innerHTML = '';
+        this.createBoard();
+        this.render();
     }
 
     printBoard() {

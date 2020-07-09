@@ -43,9 +43,16 @@ header {
     min-width: 100%;
 }
 
-.card {
+.card-container {
     border: 2px solid red;
     min-width: 75%;
+    min-height: 75%;
+    text-align: center;
+}
+
+.card {
+    border: 2px solid purple;
+    margin: 0.5em;
 }
 
 /* TODO change background color */

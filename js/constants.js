@@ -1,4 +1,5 @@
 // Classes
+export const CARD_CONTAINER_CLASS = 'card-container';
 export const CARD_CLASS = 'card';
 export const DECK_CLASS = 'deck';
 

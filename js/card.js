@@ -8,36 +8,44 @@ export default class Card {
     }
 
     _updateElement() {
+        const card = this._element.querySelector(`.${cs.CARD_CLASS}`);
         if (this._status === cs.HIDDEN_STATUS) {
-            this._element.style.visibility = cs.HIDDEN_VISIBILITY;
-            this._element.classList.add(cs.HIDDEN_STATUS);
+            card.style.visibility = cs.HIDDEN_VISIBILITY;
+            card.classList.add(cs.HIDDEN_STATUS);
         } else {
-            this._element.style.visibility = cs.DEFAULT_VISIBILITY;
-            this._element.classList.remove(cs.HIDDEN_STATUS);
+            card.style.visibility = cs.DEFAULT_VISIBILTY;
+            card.classList.remove(cs.HIDDEN_STATUS);
         }
     }
 
     _renderParentElement() {
         this._element = document.createElement('div');
-        this._element.classList.add(cs.CARD_CLASS);
-        if (this._status === cs.HIDDEN_STATUS) {
-            this._element.style.visibility = cs.HIDDEN_VISIBILITY;
-            this._element.classList.add(cs.HIDDEN_STATUS);
-        }
-
+        this._element.classList.add(cs.CARD_CONTAINER_CLASS);
         this._element.addEventListener('click', () => {
             this.toggleStatus();
-            this._renderParentElement();
+            this._updateElement();
         });
         return this._element;
     }
 
+    _renderCardElement() {
+        const card = document.createElement('div');
+        card.classList.add(cs.CARD_CLASS);
+        if (this._status === cs.HIDDEN_STATUS) {
+            card.style.visibility = cs.HIDDEN_VISIBILITY;
+            card.classList.add(cs.HIDDEN_STATUS);
+        }
+        return card;
+    }
+
     render() {
         this._element = this._renderParentElement();
+        const card = this._renderCardElement();
         const p = document.createElement('p');
         p.textContent = this._value;
 
-        this._element.appendChild(p);
+        this._element.appendChild(card);
+        card.appendChild(p);
         return this._element;
     }
 

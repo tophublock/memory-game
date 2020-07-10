@@ -120,7 +120,18 @@ export default class Game {
         score.innerText = ++this._numMatches;
     }
 
+    _restartStats() {
+        this._numMoves = 0;
+        const moves = document.getElementById('moves');
+        moves.innerText = this._numMoves;
+
+        this._numMatches = 0;
+        const score = document.getElementById('score');
+        score.innerText = this._numMatches;
+    }
+
     restart() {
+        this._restartStats();
         const gameDiv = document.getElementById('board');
         gameDiv.innerHTML = '';
         this.createBoard();

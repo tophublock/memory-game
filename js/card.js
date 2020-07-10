@@ -9,58 +9,42 @@ export default class Card {
 
     _updateElement() {
         const card = this._element.querySelector(`.${cs.CARD_CLASS}`);
-        if (this._status === cs.HIDDEN_STATUS) {
-            card.style.visibility = cs.HIDDEN_VISIBILITY;
-            card.classList.add(cs.HIDDEN_STATUS);
-        } else if (this._status === cs.MATCHED_STATUS) {
-            card.style.visibility = cs.HIDDEN_VISIBILITY;
-            this._element.classList.add(cs.MATCHED_STATUS);
-        } else {
-            card.style.visibility = cs.DEFAULT_VISIBILTY;
-            card.classList.remove(cs.HIDDEN_STATUS);
+        if (this._status === cs.MATCHED_STATUS) {
+            card.classList.add(cs.MATCHED_STATUS);
+            const front = card.querySelector(`.${cs.CARD_FRONT}`);
+            front.classList.add(cs.MATCHED_STATUS);
         }
     }
 
     _renderParentElement() {
         this._element = document.createElement('div');
         this._element.classList.add(cs.CARD_CONTAINER_CLASS);
-        // this._element.addEventListener('click', () => {
-        //     this.toggleVisibility();
-        // });
         return this._element;
     }
 
     _renderCardElement() {
         const card = document.createElement('div');
         card.classList.add(cs.CARD_CLASS);
-        if (this._status === cs.HIDDEN_STATUS) {
-            card.style.visibility = cs.HIDDEN_VISIBILITY;
-            card.classList.add(cs.HIDDEN_STATUS);
-        }
+        const front = document.createElement('div');
+        front.classList.add(cs.CARD_FRONT);
+        front.innerText = this._value;
+        const back = document.createElement('div');
+        back.classList.add(cs.CARD_BACK);
+
+        card.appendChild(front);
+        card.appendChild(back);
         return card;
     }
 
     render() {
         this._element = this._renderParentElement();
         const card = this._renderCardElement();
-        const p = document.createElement('p');
-        p.textContent = this._value;
-
         this._element.appendChild(card);
-        card.appendChild(p);
+        this.flipCard();
         return this._element;
     }
 
-    bindEvent(event, func) {
-        if (this._element) {
-            this._element.addEventListener(event, func);
-        }
-    }
-
-    update() {
-        this._updateElement();
-    }
-
+    // TODO refactor card updating/flip card
     toggleVisibility() {
         if (this._status === cs.HIDDEN_STATUS) {
             this._status = cs.DEFAULT_STATUS;
@@ -68,6 +52,25 @@ export default class Card {
             this._status = cs.HIDDEN_STATUS;
         }
         this._updateElement();
+    }
+
+    flipCard() {
+        const card = this._element.querySelector(`.${cs.CARD_CLASS}`);
+        if (card.classList.contains(cs.CARD_FLIP)) {
+            card.classList.remove(cs.CARD_FLIP);
+        } else {
+            card.classList.add(cs.CARD_FLIP);
+        }
+    }
+
+    update() {
+        this._updateElement();
+    }
+
+    bindEvent(event, func) {
+        if (this._element) {
+            this._element.addEventListener(event, func);
+        }
     }
 
     setStatus(status) {

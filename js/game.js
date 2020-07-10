@@ -40,14 +40,15 @@ export default class Game {
     }
 
     bindCard(card) {
-        // TODO don't let user click the same card again
         card.bindEvent('click', () => {
+            console.log('clicked');
             if (this.paused || this._visibileCards.includes(card) || !(card instanceof Card)) {
                 return;
             }
 
             this._visibileCards.push(card);
             card.toggleVisibility();
+            card.flipCard();
             if (this._visibileCards.length === cs.MAX_ATTEMPTS) {
                 this.processVisibleCards();
             }
@@ -62,6 +63,9 @@ export default class Game {
                 this._numMatches++;
                 this.checkWin();
             } else {
+                this._visibileCards.forEach((card) => {
+                    card.flipCard();
+                });
                 this.changeVisibleCardsStatus(cs.HIDDEN_STATUS);
             }
             this._visibileCards.length = 0;

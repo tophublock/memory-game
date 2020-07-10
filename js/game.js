@@ -8,6 +8,7 @@ export default class Game {
         this._width = n;
         this._height = n;
         this._numMatches = 0;
+        this._numMoves = 0;
         this._paused = false;
         this._visibileCards = [];
         this._deck = new Deck(n * n);
@@ -49,6 +50,7 @@ export default class Game {
             this._visibileCards.push(card);
             card.toggleVisibility();
             card.flipCard();
+            this.incrementMoves();
             if (this._visibileCards.length === cs.MAX_ATTEMPTS) {
                 this.processVisibleCards();
             }
@@ -60,7 +62,7 @@ export default class Game {
         setTimeout(() => {
             if (this.checkMatch()) {
                 this.changeVisibleCardsStatus(cs.MATCHED_STATUS);
-                this._numMatches++;
+                this.incrementScore();
                 this.checkWin();
             } else {
                 this._visibileCards.forEach((card) => {
@@ -106,6 +108,16 @@ export default class Game {
             console.log('reset');
             this.restart();
         });
+    }
+
+    incrementMoves() {
+        const moves = document.getElementById('moves');
+        moves.innerText = ++this._numMoves;
+    }
+
+    incrementScore() {
+        const score = document.getElementById('score');
+        score.innerText = ++this._numMatches;
     }
 
     restart() {

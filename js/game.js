@@ -104,11 +104,11 @@ export default class Game {
         const resetButton = document.getElementById('restart-button');
         resetButton.addEventListener('click', () => {
             console.log('reset');
-            this.reset();
+            this.restart();
         });
     }
 
-    reset() {
+    restart() {
         const gameDiv = document.getElementById('board');
         gameDiv.innerHTML = '';
         this.createBoard();

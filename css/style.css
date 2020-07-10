@@ -92,6 +92,9 @@ header {
 }
 
 .card-front {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: black;
     background-color: white;
 }
@@ -101,7 +104,6 @@ header {
     background-color: red;
 }
 
-/* TODO: fix staggering issue */
 .matched {
     border-color: green;
     background-color: green;

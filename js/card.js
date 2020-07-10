@@ -27,7 +27,9 @@ export default class Card {
         card.classList.add(cs.CARD_CLASS);
         const front = document.createElement('div');
         front.classList.add(cs.CARD_FRONT);
-        front.innerText = this._value;
+        const text = document.createElement('span');
+        text.innerText = this._value;
+        front.appendChild(text);
         const back = document.createElement('div');
         back.classList.add(cs.CARD_BACK);
 

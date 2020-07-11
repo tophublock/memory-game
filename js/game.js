@@ -2,6 +2,10 @@ import * as cs from './constants.js';
 import Deck from './deck.js';
 import Card from './card.js';
 
+function formatTimeToStr(t) {
+    return t.toString().padStart(2, 0);
+}
+
 export default class Game {
     constructor(n) {
         // TODO: ensure n is even
@@ -11,6 +15,9 @@ export default class Game {
         this._numMoves = 0;
         this._paused = false;
         this._visibileCards = [];
+        this._timer = undefined;
+        this._minutes = 0;
+        this._seconds = 0;
         this._deck = new Deck(n * n);
         this.createBoard();
         this.setResetButton();
@@ -42,6 +49,7 @@ export default class Game {
 
     bindCard(card) {
         card.bindEvent('click', () => {
+            // TODO: if first card clicked, start timer
             console.log('clicked');
             if (this.paused || this._visibileCards.includes(card) || !(card instanceof Card)) {
                 return;
@@ -51,10 +59,55 @@ export default class Game {
             card.toggleVisibility();
             card.flipCard();
             this.incrementMoves();
+            if (this._numMoves === 1) {
+                this.startTimer();
+            }
+
             if (this._visibileCards.length === cs.MAX_ATTEMPTS) {
                 this.processVisibleCards();
             }
         });
+    }
+
+    // Assume plays up to one hour
+    // TODO add game over at one hour
+    startTimer() {
+        this._timer = setInterval(() => {
+            this._seconds++;
+            if (this._seconds >= 60) {
+                this._seconds = 0;
+                this._minutes++;
+            }
+
+            this._updateMinutesEl();
+
+            this._updateSecondsEl();
+        }, 1000);
+    }
+
+    _updateSecondsEl() {
+        const secondsStr = formatTimeToStr(this._seconds);
+        const secondsEl = document.getElementById('seconds');
+        secondsEl.innerText = secondsStr;
+    }
+
+    _updateMinutesEl() {
+        const minutesStr = formatTimeToStr(this._minutes);
+        const minutesEl = document.getElementById('minutes');
+        minutesEl.innerText = minutesStr;
+    }
+
+    stopTimer() {
+        clearInterval(this._timer);
+        this._timer = undefined;
+    }
+
+    resetTimer() {
+        this._timer = undefined;
+        this._seconds = 0;
+        this._minutes = 0;
+        this._updateMinutesEl();
+        this._updateSecondsEl();
     }
 
     processVisibleCards() {
@@ -92,6 +145,7 @@ export default class Game {
     checkWin() {
         if (this._numMatches * 2 === this._deck.getLength()) {
             console.log('you won!');
+            this.stopTimer();
         }
     }
 

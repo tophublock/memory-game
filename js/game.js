@@ -12,15 +12,23 @@ export default class Game {
         this._numMoves = 0;
         this._paused = false;
         this._visibileCards = [];
+        this._movesEl = document.getElementById('moves');
+        this._scoreEl = document.getElementById('score');
         this._timer = new Timer(document.getElementById('time'));
         this._deck = new Deck(n * n);
-        this.createBoard();
-        this.setResetButton();
+        this._createBoard();
         // TODO do some refactoring
         // TODO increase board size functionality
     }
 
-    createBoard() {
+    static changeCardsStatus(cards, status) {
+        cards.forEach((card) => {
+            card.setStatus(status);
+            card.update();
+        });
+    }
+
+    _createBoard() {
         this._deck.resetDeck();
         this._board = [];
         for (let i = 0; i < this._width; i++) {
@@ -32,62 +40,43 @@ export default class Game {
         }
     }
 
-    render() {
-        const gameDiv = document.getElementById('board');
-        for (let i = 0; i < this._board.length; i++) {
-            for (let j = 0; j < this._board[i].length; j++) {
-                const card = this._board[i][j];
-                gameDiv.appendChild(card.render());
-                this.bindCard(card);
-            }
-        }
-        return gameDiv;
+    _incrementMoves() {
+        this._moves.innerText = ++this._numMoves;
     }
 
-    bindCard(card) {
+    _incrementScore() {
+        this._score.innerText = ++this._numMatches;
+    }
+
+    _restartStats() {
+        this._numMoves = 0;
+        this._moves.innerText = this._numMoves;
+
+        this._numMatches = 0;
+        this._score.innerText = this._numMatches;
+    }
+
+    _bindCard(card) {
         card.bindEvent('click', () => {
-            // TODO: if first card clicked, start timer
-            console.log('clicked');
-            if (this.paused || this._visibileCards.includes(card) || !(card instanceof Card)) {
+            if (this._paused || this._visibileCards.includes(card) || !(card instanceof Card)) {
                 return;
+            }
+
+            this._incrementMoves();
+            if (this._numMoves === 1) {
+                this._timer.start();
             }
 
             this._visibileCards.push(card);
             card.toggleVisibility();
             card.flipCard();
-            this.incrementMoves();
-            if (this._numMoves === 1) {
-                this._timer.start();
-            }
-
             if (this._visibileCards.length === cs.MAX_ATTEMPTS) {
-                this.processVisibleCards();
+                this._processVisibleCards();
             }
         });
     }
 
-    // Assume plays up to one hour
-    // TODO add game over at one hour
-
-    processVisibleCards() {
-        this.paused = true;
-        setTimeout(() => {
-            if (this.checkMatch()) {
-                this.changeVisibleCardsStatus(cs.MATCHED_STATUS);
-                this.incrementScore();
-                this.checkWin();
-            } else {
-                this._visibileCards.forEach((card) => {
-                    card.flipCard();
-                });
-                this.changeVisibleCardsStatus(cs.HIDDEN_STATUS);
-            }
-            this._visibileCards.length = 0;
-            this.paused = false;
-        }, 500);
-    }
-
-    checkMatch() {
+    _checkMatch() {
         if (this._visibileCards.length === 0) {
             return false;
         }
@@ -101,46 +90,42 @@ export default class Game {
         return true;
     }
 
-    checkWin() {
+    _checkWin() {
         if (this._numMatches * 2 === this._deck.getLength()) {
             console.log('you won!');
             this._timer.stop();
         }
     }
 
-    changeVisibleCardsStatus(status) {
-        this._visibileCards.forEach((card) => {
-            card.setStatus(status);
-            card.update();
-        });
+    // TODO add game over at one hour
+    _processVisibleCards() {
+        this._paused = true;
+        setTimeout(() => {
+            if (this._checkMatch()) {
+                Game.changeCardsStatus(this._visibileCards, cs.MATCHED_STATUS);
+                this._incrementScore();
+                this._checkWin();
+            } else {
+                this._visibileCards.forEach((card) => {
+                    card.flipCard();
+                });
+                Game.changeCardsStatus(this._visibileCards, cs.HIDDEN_STATUS);
+            }
+            this._visibileCards.length = 0;
+            this._paused = false;
+        }, 500);
     }
 
-    setResetButton() {
-        const resetButton = document.getElementById('restart-button');
-        resetButton.addEventListener('click', () => {
-            console.log('reset');
-            this.restart();
-        });
-    }
-
-    incrementMoves() {
-        const moves = document.getElementById('moves');
-        moves.innerText = ++this._numMoves;
-    }
-
-    incrementScore() {
-        const score = document.getElementById('score');
-        score.innerText = ++this._numMatches;
-    }
-
-    _restartStats() {
-        this._numMoves = 0;
-        const moves = document.getElementById('moves');
-        moves.innerText = this._numMoves;
-
-        this._numMatches = 0;
-        const score = document.getElementById('score');
-        score.innerText = this._numMatches;
+    render() {
+        const gameDiv = document.getElementById('board');
+        for (let i = 0; i < this._board.length; i++) {
+            for (let j = 0; j < this._board[i].length; j++) {
+                const card = this._board[i][j];
+                gameDiv.appendChild(card.render());
+                this._bindCard(card);
+            }
+        }
+        return gameDiv;
     }
 
     restart() {
@@ -148,10 +133,11 @@ export default class Game {
         this._timer.reset();
         const gameDiv = document.getElementById('board');
         gameDiv.innerHTML = '';
-        this.createBoard();
+        this._createBoard();
         this.render();
     }
 
+    // TODO: remove
     printBoard() {
         for (let i = 0; i < this._width; i++) {
             for (let j = 0; j < this._height; j++) {

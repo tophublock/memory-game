@@ -6,17 +6,19 @@
     <meta name="description"  content="A simple memory game in Javascript">
     <meta name="keywords" content="memory,game,simple">
     <title>Memory Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./css/output.css">
 </head>
 <body>
+    <!-- TODO add transition class tailwind -->
     <header>
-        <h1>Memory Game</h1>
+        <h1>MEMORY GAME</h1>
         <h3>by aim4</h3>
     </header>
-    <div class="game-metadata-container">
+    <div class="game-metadata-container pb-5">
         <div class="metadata-container">
             <p>Score:</p>
-            <p id="score">0</p>
+            <p class='px-1' id="score">0</p>
         </div>
         <div class="metadata-container">
             <p>Moves:</p>
@@ -24,23 +26,23 @@
         </div>
         <div class="metadata-container">
             <p>Time:</p>
-            <p id="time">00:00</p>
+            <p class='px-1' id="time">00:00</p>
         </div>
     </div>
-    <div class="game-container">
+    <div class="game-container rounded">
         <div class="game" id="board">
         </div>
     </div>
-    <div class="game-options-container">
+    <div class="game-options-container py-10 px-1">
         <div class="difficulty-container">
-            <label>Difficulty</label>
-            <select name="difficulty" id="difficulty">
+            <label class='pt-1 px-1'>Difficulty</label>
+            <select class='px-1' name="difficulty" id="difficulty">
                 <option value="easy" selected>easy</option>
                 <option value="medium">medium</option>
                 <option value="hard">hard</option>
             </select>
         </div>
-        <button id='restart-button'>Restart</button>
+        <button class='text-white font-bold bg-purple-700 hover:bg-purple-900 py-1 px-1 rounded' id='restart-button'>Restart</button>
     </div>
     <script type="module" src="./js/main.js"></script>
 </body>

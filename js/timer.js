@@ -35,9 +35,9 @@ export default class Timer {
     }
 
     reset() {
+        this.stop();
         this._seconds = 0;
         this._minutes = 0;
-        this._timer = undefined;
         this._updateEl();
     }
 }

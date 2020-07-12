@@ -35,3 +35,4 @@ export const GRID_TEMPLATE = ({ num, size }) => `repeat(${num}, ${size}px)`;
 
 // Tailwind
 export const ROUNDED_TAILWIND = 'rounded';
+export const SHADOW_TAILWIND = 'shadow-xl';

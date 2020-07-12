@@ -38,3 +38,8 @@ difficultySelect.addEventListener('change', () => {
     currentDifficulty = difficulty;
     game.render();
 });
+
+// const buttons = document.getElementsByTagName('button');
+// buttons.forEach((button) => {
+//     button.classList.add(cs.ROUNDED_TAILWIND);
+// });

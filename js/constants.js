@@ -30,4 +30,5 @@ export const HARD_SIZE = 8;
 
 // CSS
 export const CARD_SIZE = 100;
+export const CARD_MARGINS = 20;
 export const GRID_TEMPLATE = ({ num, size }) => `repeat(${num}, ${size}px)`;

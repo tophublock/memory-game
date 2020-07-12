@@ -53,12 +53,16 @@ export default class Game {
     }
 
     _styleBoard() {
+        document.body.style.minWidth = `${(this._width * cs.CARD_SIZE + this._width * cs.CARD_MARGINS).toString()}px`;
+        const gameContainer = document.getElementsByClassName('game-container')[0];
+        gameContainer.style.minWidth = `${(this._width * cs.CARD_SIZE).toString()}px`;
+        gameContainer.style.minHeight = `${(this._width * cs.CARD_SIZE).toString()}px`;
+
         this._boardEl = document.getElementById('board');
         const template = {
             num: this._width,
             size: cs.CARD_SIZE,
         };
-
         this._boardEl.style.gridTemplateColumns = cs.GRID_TEMPLATE(template);
         this._boardEl.style.gridTemplateRows = cs.GRID_TEMPLATE(template);
     }

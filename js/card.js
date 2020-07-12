@@ -7,6 +7,12 @@ export default class Card {
         this._element = undefined;
     }
 
+    static addClassesToEl(element, classes) {
+        classes.forEach((c) => {
+            element.classList.add(c);
+        });
+    }
+
     _updateElement() {
         const card = this._element.querySelector(`.${cs.CARD_CLASS}`);
         if (this._status === cs.MATCHED_STATUS) {
@@ -19,19 +25,22 @@ export default class Card {
     _renderParentElement() {
         this._element = document.createElement('div');
         this._element.classList.add(cs.CARD_CONTAINER_CLASS);
+        this._element.classList.add(cs.ROUNDED_TAILWIND);
         return this._element;
     }
 
     _renderCardElement() {
         const card = document.createElement('div');
-        card.classList.add(cs.CARD_CLASS);
+        Card.addClassesToEl(card, [cs.CARD_CLASS, cs.ROUNDED_TAILWIND]);
+
         const front = document.createElement('div');
-        front.classList.add(cs.CARD_FRONT);
+        Card.addClassesToEl(front, [cs.CARD_FRONT, cs.ROUNDED_TAILWIND]);
         const text = document.createElement('span');
         text.innerText = this._value;
         front.appendChild(text);
+
         const back = document.createElement('div');
-        back.classList.add(cs.CARD_BACK);
+        Card.addClassesToEl(back, [cs.CARD_BACK, cs.ROUNDED_TAILWIND]);
 
         card.appendChild(front);
         card.appendChild(back);

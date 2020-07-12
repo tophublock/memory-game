@@ -117,6 +117,7 @@ export default class Game {
         return true;
     }
 
+    // TODO insert 'you won!' text
     _checkWin() {
         if (this._numMatches * 2 === this._deck.getLength()) {
             console.log('you won!');

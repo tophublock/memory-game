@@ -1,10 +1,7 @@
 import * as cs from './constants.js';
 import Deck from './deck.js';
 import Card from './card.js';
-
-function formatTimeToStr(t) {
-    return t.toString().padStart(2, 0);
-}
+import Timer from './timer.js';
 
 export default class Game {
     constructor(n) {
@@ -15,12 +12,12 @@ export default class Game {
         this._numMoves = 0;
         this._paused = false;
         this._visibileCards = [];
-        this._timer = undefined;
-        this._minutes = 0;
-        this._seconds = 0;
+        this._timer = new Timer(document.getElementById('time'));
         this._deck = new Deck(n * n);
         this.createBoard();
         this.setResetButton();
+        // TODO do some refactoring
+        // TODO increase board size functionality
     }
 
     createBoard() {
@@ -60,7 +57,7 @@ export default class Game {
             card.flipCard();
             this.incrementMoves();
             if (this._numMoves === 1) {
-                this.startTimer();
+                this._timer.start();
             }
 
             if (this._visibileCards.length === cs.MAX_ATTEMPTS) {
@@ -71,44 +68,6 @@ export default class Game {
 
     // Assume plays up to one hour
     // TODO add game over at one hour
-    startTimer() {
-        this._timer = setInterval(() => {
-            this._seconds++;
-            if (this._seconds >= 60) {
-                this._seconds = 0;
-                this._minutes++;
-            }
-
-            this._updateMinutesEl();
-
-            this._updateSecondsEl();
-        }, 1000);
-    }
-
-    _updateSecondsEl() {
-        const secondsStr = formatTimeToStr(this._seconds);
-        const secondsEl = document.getElementById('seconds');
-        secondsEl.innerText = secondsStr;
-    }
-
-    _updateMinutesEl() {
-        const minutesStr = formatTimeToStr(this._minutes);
-        const minutesEl = document.getElementById('minutes');
-        minutesEl.innerText = minutesStr;
-    }
-
-    stopTimer() {
-        clearInterval(this._timer);
-        this._timer = undefined;
-    }
-
-    resetTimer() {
-        this._timer = undefined;
-        this._seconds = 0;
-        this._minutes = 0;
-        this._updateMinutesEl();
-        this._updateSecondsEl();
-    }
 
     processVisibleCards() {
         this.paused = true;
@@ -145,7 +104,7 @@ export default class Game {
     checkWin() {
         if (this._numMatches * 2 === this._deck.getLength()) {
             console.log('you won!');
-            this.stopTimer();
+            this._timer.stop();
         }
     }
 
@@ -186,6 +145,7 @@ export default class Game {
 
     restart() {
         this._restartStats();
+        this._timer.reset();
         const gameDiv = document.getElementById('board');
         gameDiv.innerHTML = '';
         this.createBoard();

@@ -6,19 +6,15 @@ import Timer from './timer.js';
 export default class Game {
     constructor(n) {
         // TODO: ensure n is even
-        this._width = n;
-        this._height = n;
-        this._numMatches = 0;
-        this._numMoves = 0;
+        this._initialize();
+        this._setDimensions(n);
+        this._restartStats();
         this._paused = false;
         this._visibileCards = [];
-        this._movesEl = document.getElementById('moves');
-        this._scoreEl = document.getElementById('score');
         this._timer = new Timer(document.getElementById('time'));
         this._deck = new Deck(n * n);
         this._createBoard();
-        // TODO do some refactoring
-        // TODO increase board size functionality
+        this._styleBoard();
     }
 
     static changeCardsStatus(cards, status) {
@@ -26,6 +22,22 @@ export default class Game {
             card.setStatus(status);
             card.update();
         });
+    }
+
+    _initialize() {
+        this._movesEl = document.getElementById('moves');
+        this._scoreEl = document.getElementById('score');
+        this._boardEl = document.getElementById('board');
+    }
+
+    _setDimensions(n) {
+        if (n % 2 === 1) {
+            this._width = n + 1;
+            this._height = n + 1;
+        } else {
+            this._width = n;
+            this._height = n;
+        }
     }
 
     _createBoard() {
@@ -40,20 +52,31 @@ export default class Game {
         }
     }
 
+    _styleBoard() {
+        this._boardEl = document.getElementById('board');
+        const template = {
+            num: this._width,
+            size: cs.CARD_SIZE,
+        };
+
+        this._boardEl.style.gridTemplateColumns = cs.GRID_TEMPLATE(template);
+        this._boardEl.style.gridTemplateRows = cs.GRID_TEMPLATE(template);
+    }
+
     _incrementMoves() {
-        this._moves.innerText = ++this._numMoves;
+        this._movesEl.innerText = ++this._numMoves;
     }
 
     _incrementScore() {
-        this._score.innerText = ++this._numMatches;
+        this._scoreEl.innerText = ++this._numMatches;
     }
 
     _restartStats() {
         this._numMoves = 0;
-        this._moves.innerText = this._numMoves;
+        this._movesEl.innerText = this._numMoves;
 
         this._numMatches = 0;
-        this._score.innerText = this._numMatches;
+        this._scoreEl.innerText = this._numMatches;
     }
 
     _bindCard(card) {
@@ -131,10 +154,14 @@ export default class Game {
     restart() {
         this._restartStats();
         this._timer.reset();
-        const gameDiv = document.getElementById('board');
-        gameDiv.innerHTML = '';
+        this.delete();
         this._createBoard();
         this.render();
+    }
+
+    delete() {
+        this._board = document.getElementById('board');
+        this._board.innerHTML = '';
     }
 
     // TODO: remove

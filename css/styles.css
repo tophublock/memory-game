@@ -105,9 +105,12 @@ h3 {
 
 .card-flip {
     transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
 }
 
-/* TODO: refactor */
 .card-front, .card-back {
     position: absolute;
     backface-visibility: hidden;
@@ -125,7 +128,10 @@ h3 {
 
 .card-back {
     transform: rotateY(180deg);
-    /* background-color: hsla(236, 56%, 73%, 1); */
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
     background-image: linear-gradient(to right, hsla(279, 56%, 73%, 1), hsla(279, 56%, 73%, 1));
     box-shadow: 5px 5px 0px hsla(251, 50%, 64%, 1);
 }

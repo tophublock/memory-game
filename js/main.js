@@ -14,7 +14,6 @@ restartBtn.addEventListener('click', () => {
 });
 
 difficultySelect.addEventListener('change', () => {
-    console.log('changing');
     const difficulty = difficultySelect.value;
     if (difficulty === currentDifficulty) {
         game.restart();
@@ -38,8 +37,3 @@ difficultySelect.addEventListener('change', () => {
     currentDifficulty = difficulty;
     game.render();
 });
-
-// const buttons = document.getElementsByTagName('button');
-// buttons.forEach((button) => {
-//     button.classList.add(cs.ROUNDED_TAILWIND);
-// });

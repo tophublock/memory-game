@@ -85,7 +85,7 @@ export default class Game {
 
     _bindCard(card) {
         card.bindEvent('click', () => {
-            if (this.isInvalidCard(card)) {
+            if (this.paused || this.isInvalidCard(card)) {
                 return;
             }
 
@@ -117,10 +117,29 @@ export default class Game {
         return true;
     }
 
-    // TODO insert 'you won!' text
+    static createOverlay(msg) {
+        const overlay = document.createElement('div');
+        overlay.className = cs.OVERLAY_CLASS;
+        const overlayText = document.createElement('div');
+        overlayText.className = cs.OVERLAY_TEXT_CLASS;
+        overlayText.innerText = msg;
+        overlay.appendChild(overlayText);
+        return overlay;
+    }
+
+    static removeOverlays() {
+        // Delete overlays
+        const overlays = document.getElementsByClassName(cs.OVERLAY_CLASS);
+        for (let i = 0; i < overlays.length; i++) {
+            overlays[i].parentElement.removeChild(overlays[i]);
+        }
+    }
+
     _checkWin() {
         if (this._numMatches * 2 === this._deck.getLength()) {
-            console.log('you won!');
+            const gameContainer = document.getElementsByClassName('game-container')[0];
+            const overlay = Game.createOverlay(cs.WON_MSG);
+            gameContainer.appendChild(overlay);
             this._timer.stop();
         }
     }
@@ -147,7 +166,7 @@ export default class Game {
     isInvalidCard(card) {
         const inUse = this._visibileCards.includes(card);
         const alreadyMatched = card.getStatus() === cs.MATCHED_STATUS;
-        return (this.paused || !(card instanceof Card) || inUse || alreadyMatched);
+        return (!(card instanceof Card) || inUse || alreadyMatched);
     }
 
     render() {
@@ -173,6 +192,7 @@ export default class Game {
     delete() {
         this._board = document.getElementById('board');
         this._board.innerHTML = '';
+        Game.removeOverlays();
     }
 
     // TODO: remove

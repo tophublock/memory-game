@@ -35,4 +35,10 @@ export const GRID_TEMPLATE = ({ num, size }) => `repeat(${num}, ${size}px)`;
 
 // Tailwind
 export const ROUNDED_TAILWIND = 'rounded';
-export const SHADOW_TAILWIND = 'shadow-xl';
+
+// Overlay
+export const OVERLAY_CLASS = 'overlay';
+export const OVERLAY_TEXT_CLASS = 'overlay-text';
+
+// Game message
+export const WON_MSG = 'YOU WON!';

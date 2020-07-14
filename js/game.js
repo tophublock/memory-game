@@ -85,7 +85,7 @@ export default class Game {
 
     _bindCard(card) {
         card.bindEvent('click', () => {
-            if (this._paused || this._visibileCards.includes(card) || !(card instanceof Card)) {
+            if (this.isInvalidCard(card)) {
                 return;
             }
 
@@ -142,6 +142,12 @@ export default class Game {
             this._visibileCards.length = 0;
             this._paused = false;
         }, 500);
+    }
+
+    isInvalidCard(card) {
+        const inUse = this._visibileCards.includes(card);
+        const alreadyMatched = card.getStatus() === cs.MATCHED_STATUS;
+        return (this.paused || !(card instanceof Card) || inUse || alreadyMatched);
     }
 
     render() {

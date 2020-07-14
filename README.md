@@ -8,3 +8,4 @@ Take a look at: https://aim4.github.io/memory-game/
 - Dynamic CSS
 - CSS: Flexbox and Grid
 - Modules in JS
+- Tailwind CSS
